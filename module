@@ -1,0 +1,14 @@
+Hooks.on("renderActorSheet", (app, html, data) => {
+  // Add the "Add to Initiative" button to the actor sheet
+  html.find(".header-actions").append(`<a class="add-to-initiative" title="Add to Initiative""><i class="fas fa-list-ol"></i></a>`);
+
+  // When the "Add to Initiative" button is clicked, add the actor to initiative
+  html.find(".add-to-initiative").click(() => {
+    const actor = game.actors.get(data.actor._id);
+    game.combat.createCombatant({
+      tokenId: null,
+      actorId: actor.id,
+      initiative: actor.data.data.attributes.init.value,
+    });
+  });
+});
